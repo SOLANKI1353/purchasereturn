@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Return & Rejection SOP</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Alpine.js for Interactivity -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            300: '#7cc7fb',
+                            400: '#38a9f8',
+                            500: '#0e8ce4',
+                            600: '#026fc7',
+                            700: '#0359a1',
+                            800: '#074c85',
+                            900: '#0c406e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .gradient-text {
+            background: linear-gradient(to right, #026fc7, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+        .stylish-shadow {
+            shadow: 0 20px 50px rgba(8, 112, 184, 0.07);
+        }
+        [x-cloak] { display: none !important; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-900 antialiased font-sans" x-data="sopApp()" x-cloak>
+
+    <div class="min-h-screen p-4 md:p-10 lg:p-16">
+        <div class="mx-auto max-w-6xl">
+            
+            <!-- Header Section -->
+            <header class="mb-16 relative">
+                <div class="absolute -top-10 -left-10 w-40 h-40 bg-blue-200/20 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-10 -right-10 w-60 h-60 bg-emerald-200/20 rounded-full blur-3xl"></div>
+                
+                <div class="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+                    <div class="max-w-2xl">
+                        <div class="mb-4 inline-flex items-center gap-2 rounded-full bg-brand-50 px-5 py-1.5 text-xs font-black text-brand-700 uppercase tracking-widest border border-brand-100 shadow-sm">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-500"></i>
+                            Standard Operating Procedure
+                        </div>
+                        <h1 class="font-display text-6xl font-[900] tracking-tighter text-slate-900 md:text-8xl leading-[0.95] mb-4">
+                            Purchase <span class="gradient-text">Return</span> <br class="hidden md:block">
+                            <span class="text-slate-300">&</span> Rejection
+                        </h1>
+                        <p class="mt-8 text-2xl text-slate-500 font-bold leading-tight max-w-xl">
+                            The definitive interactive protocol for high-stakes quality control and vendor lifecycle management.
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col items-end gap-3">
+                        <div class="flex -space-x-3">
+                            <template x-for="i in [1,2,3,4]">
+                                <div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden shadow-sm">
+                                    <img :src="'https://i.pravatar.cc/100?img=' + (i+10)" alt="User">
+                                </div>
+                            </template>
+                            <div class="w-10 h-10 rounded-full border-2 border-white bg-brand-600 flex items-center justify-center text-[10px] font-black text-white shadow-sm">
+                                +12
+                            </div>
+                        </div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Active Stakeholders</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="grid gap-0">
+                <!-- 1. Purpose & Scope - Bento Style -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="md:col-span-2 rounded-[3rem] bg-white p-12 border-2 border-slate-100 shadow-[0_20px_50px_rgba(8,112,184,0.07)] group transition-all duration-500 hover:border-brand-400/30 hover:shadow-2xl hover:shadow-brand-500/10">
+                        <div class="flex items-center gap-5 mb-8">
+                            <div class="w-14 h-14 rounded-2xl bg-brand-600 text-white flex items-center justify-center shadow-lg shadow-brand-200">
+                                <i data-lucide="target" class="w-7 h-7"></i>
+                            </div>
+                            <h2 class="font-display text-3xl font-[900] text-slate-900 uppercase tracking-tighter">Mission Purpose</h2>
+                        </div>
+                        
+                        <!-- Language Toggle -->
+                        <div class="flex gap-1 bg-slate-100/50 p-1 rounded-full w-fit mb-4 backdrop-blur-sm border border-slate-200/50">
+                            <template x-for="l in ['en', 'hi', 'gu']">
+                                <button @click="langs.purpose = l" 
+                                    :class="langs.purpose === l ? 'bg-brand-600 text-white shadow-md shadow-brand-200' : 'text-slate-500 hover:bg-slate-200 hover:text-slate-700'"
+                                    class="px-5 py-1.5 rounded-full text-xs font-extrabold transition-all duration-300 uppercase"
+                                    x-text="l === 'en' ? 'ENGLISH' : l === 'hi' ? 'हिन्दी' : 'ગુજરાતી'">
+                                </button>
+                            </template>
+                        </div>
+
+                        <p class="text-2xl leading-snug text-slate-700 font-extrabold tracking-tight" x-text="data.purpose[langs.purpose]"></p>
+                    </div>
+                    
+                    <div class="rounded-[3rem] bg-gradient-to-br from-brand-600 to-brand-800 p-12 text-white shadow-[0_20px_50px_rgba(8,112,184,0.07)] relative overflow-hidden group border-2 border-brand-500/20">
+                        <div class="absolute -right-10 -top-10 w-48 h-48 bg-white/10 rounded-full blur-3xl transition-transform duration-1000 group-hover:scale-150"></div>
+                        <div class="flex items-center gap-5 mb-8 relative z-10">
+                            <div class="w-14 h-14 rounded-2xl bg-white/20 text-white flex items-center justify-center backdrop-blur-xl border border-white/30">
+                                <i data-lucide="info" class="w-7 h-7"></i>
+                            </div>
+                            <h2 class="font-display text-3xl font-[900] uppercase tracking-tighter">Scope</h2>
+                        </div>
+
+                        <!-- Language Toggle -->
+                        <div class="flex gap-1 bg-white/10 p-1 rounded-full w-fit mb-4 backdrop-blur-sm border border-white/20 relative z-10">
+                            <template x-for="l in ['en', 'hi', 'gu']">
+                                <button @click="langs.scope = l" 
+                                    :class="langs.scope === l ? 'bg-white text-brand-700 shadow-md' : 'text-white/70 hover:bg-white/20 hover:text-white'"
+                                    class="px-5 py-1.5 rounded-full text-xs font-extrabold transition-all duration-300 uppercase"
+                                    x-text="l === 'en' ? 'ENGLISH' : l === 'hi' ? 'हिन्दी' : 'ગુજરાતી'">
+                                </button>
+                            </template>
+                        </div>
+
+                        <p class="text-xl font-black leading-tight opacity-95 relative z-10 tracking-tight" x-text="data.scope[langs.scope]"></p>
+                    </div>
+                </div>
+
+                <!-- 3. Responsibility Matrix -->
+                <div class="mb-8 overflow-hidden rounded-[2.5rem] border-2 border-slate-100 bg-white shadow-[0_20px_50px_rgba(8,112,184,0.07)] transition-all duration-500 hover:border-brand-200/50">
+                    <button @click="openSections.responsibility = !openSections.responsibility" class="flex w-full items-center justify-between p-8 text-left transition-colors hover:bg-slate-50/30">
+                        <div class="flex items-center gap-6">
+                            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow-lg shadow-emerald-200">
+                                <i data-lucide="users" class="w-7 h-7"></i>
+                            </div>
+                            <h2 class="font-display text-2xl font-[900] tracking-tighter text-slate-900 uppercase">Responsibility Matrix</h2>
+                        </div>
+                        <div :class="openSections.responsibility ? 'rotate-180' : ''" class="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-transform duration-300">
+                            <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                        </div>
+                    </button>
+                    <div x-show="openSections.responsibility" x-collapse>
+                        <div class="border-t border-slate-100/50 p-8 pt-4">
+                            <div class="flex gap-1 bg-slate-100/50 p-1 rounded-full w-fit mb-6 border border-slate-200/50">
+                                <template x-for="l in ['en', 'hi', 'gu']">
+                                    <button @click="langs.responsibility = l" 
+                                        :class="langs.responsibility === l ? 'bg-brand-600 text-white shadow-md' : 'text-slate-500 hover:bg-slate-200'"
+                                        class="px-5 py-1.5 rounded-full text-xs font-extrabold transition-all duration-300 uppercase"
+                                        x-text="l === 'en' ? 'ENGLISH' : l === 'hi' ? 'हिन्दी' : 'ગુજરાતી'">
+                                    </button>
+                                </template>
+                            </div>
+                            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                                <template x-for="item in data.responsibilities">
+                                    <div class="rounded-3xl border border-slate-100 bg-slate-50/50 p-6 transition-all hover:bg-white hover:shadow-xl hover:shadow-brand-500/5 group">
+                                        <div :class="item.color" class="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl text-white shadow-lg transition-transform duration-500 group-hover:rotate-6">
+                                            <i :data-lucide="item.iconName" class="w-7 h-7"></i>
+                                        </div>
+                                        <h3 class="font-display text-lg font-black text-slate-900 mb-2" x-text="item.role[langs.responsibility]"></h3>
+                                        <p class="text-sm font-bold text-slate-500 leading-relaxed" x-text="item.task[langs.responsibility]"></p>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Standard Procedure -->
+                <div class="mb-8 overflow-hidden rounded-[2.5rem] border-2 border-slate-100 bg-white shadow-[0_20px_50px_rgba(8,112,184,0.07)] transition-all duration-500 hover:border-brand-200/50">
+                    <button @click="openSections.procedure = !openSections.procedure" class="flex w-full items-center justify-between p-8 text-left transition-colors hover:bg-slate-50/30">
+                        <div class="flex items-center gap-6">
+                            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-600 text-white shadow-lg shadow-amber-200">
+                                <i data-lucide="clipboard-list" class="w-7 h-7"></i>
+                            </div>
+                            <h2 class="font-display text-2xl font-[900] tracking-tighter text-slate-900 uppercase">Standard Procedure</h2>
+                        </div>
+                        <div :class="openSections.procedure ? 'rotate-180' : ''" class="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-transform duration-300">
+                            <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                        </div>
+                    </button>
+                    <div x-show="openSections.procedure" x-collapse>
+                        <div class="border-t border-slate-100/50 p-8 pt-4">
+                            <div class="flex gap-1 bg-slate-100/50 p-1 rounded-full w-fit mb-10 border border-slate-200/50">
+                                <template x-for="l in ['en', 'hi', 'gu']">
+                                    <button @click="langs.procedure = l" 
+                                        :class="langs.procedure === l ? 'bg-brand-600 text-white shadow-md' : 'text-slate-500 hover:bg-slate-200'"
+                                        class="px-5 py-1.5 rounded-full text-xs font-extrabold transition-all duration-300 uppercase"
+                                        x-text="l === 'en' ? 'ENGLISH' : l === 'hi' ? 'हिन्दी' : 'ગુજરાતી'">
+                                    </button>
+                                </template>
+                            </div>
+                            <div class="space-y-10 relative">
+                                <div class="absolute left-[27px] top-4 bottom-4 w-1 bg-gradient-to-b from-brand-500 via-emerald-500 to-indigo-500 rounded-full opacity-20"></div>
+                                <template x-for="step in data.steps">
+                                    <div class="relative flex gap-8 group">
+                                        <div class="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white border-4 border-slate-50 shadow-lg text-slate-900 font-black text-xl transition-all duration-500 group-hover:scale-110 group-hover:bg-brand-600 group-hover:text-white group-hover:border-brand-100" x-text="step.id"></div>
+                                        <div class="pt-2">
+                                            <div class="flex items-center gap-3 mb-3">
+                                                <div class="p-1.5 rounded-lg bg-slate-100 text-slate-500 group-hover:bg-brand-50 group-hover:text-brand-600 transition-colors">
+                                                    <i :data-lucide="step.iconName" class="w-5 h-5"></i>
+                                                </div>
+                                                <h3 class="font-display text-2xl font-[900] text-slate-900 tracking-tight" x-text="step.title[langs.procedure]"></h3>
+                                            </div>
+                                            <p class="text-lg text-slate-500 font-bold leading-relaxed max-w-3xl" x-text="step.desc[langs.procedure]"></p>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Documentation -->
+                <div class="mb-8 overflow-hidden rounded-[2.5rem] border-2 border-slate-100 bg-white shadow-[0_20px_50px_rgba(8,112,184,0.07)] transition-all duration-500 hover:border-brand-200/50">
+                    <button @click="openSections.documents = !openSections.documents" class="flex w-full items-center justify-between p-8 text-left transition-colors hover:bg-slate-50/30">
+                        <div class="flex items-center gap-6">
+                            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-600 text-white shadow-lg shadow-indigo-200">
+                                <i data-lucide="file-text" class="w-7 h-7"></i>
+                            </div>
+                            <h2 class="font-display text-2xl font-[900] tracking-tighter text-slate-900 uppercase">Required Documentation</h2>
+                        </div>
+                        <div :class="openSections.documents ? 'rotate-180' : ''" class="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-transform duration-300">
+                            <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                        </div>
+                    </button>
+                    <div x-show="openSections.documents" x-collapse>
+                        <div class="border-t border-slate-100/50 p-8 pt-4">
+                            <div class="flex gap-1 bg-slate-100/50 p-1 rounded-full w-fit mb-6 border border-slate-200/50">
+                                <template x-for="l in ['en', 'hi', 'gu']">
+                                    <button @click="langs.documents = l" 
+                                        :class="langs.documents === l ? 'bg-brand-600 text-white shadow-md' : 'text-slate-500 hover:bg-slate-200'"
+                                        class="px-5 py-1.5 rounded-full text-xs font-extrabold transition-all duration-300 uppercase"
+                                        x-text="l === 'en' ? 'ENGLISH' : l === 'hi' ? 'हिन्दी' : 'ગુજરાતી'">
+                                    </button>
+                                </template>
+                            </div>
+                            <div class="flex flex-wrap gap-4">
+                                <template x-for="doc in data.documents">
+                                    <div :class="doc.color" class="flex items-center gap-3 rounded-2xl px-8 py-4 text-sm font-black uppercase tracking-wider shadow-sm border border-white/20 transition-transform hover:scale-105">
+                                        <i data-lucide="file-text" class="w-4.5 h-4.5"></i>
+                                        <span x-text="doc[langs.documents]"></span>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Flowchart -->
+                <div class="mb-8 overflow-hidden rounded-[2.5rem] border-2 border-slate-100 bg-white shadow-[0_20px_50px_rgba(8,112,184,0.07)] transition-all duration-500 hover:border-brand-200/50">
+                    <button @click="openSections.flowchart = !openSections.flowchart" class="flex w-full items-center justify-between p-8 text-left transition-colors hover:bg-slate-50/30">
+                        <div class="flex items-center gap-6">
+                            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-rose-600 text-white shadow-lg shadow-rose-200">
+                                <i data-lucide="git-graph" class="w-7 h-7"></i>
+                            </div>
+                            <h2 class="font-display text-2xl font-[900] tracking-tighter text-slate-900 uppercase">Advanced Process Flow</h2>
+                        </div>
+                        <div :class="openSections.flowchart ? 'rotate-180' : ''" class="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-transform duration-300">
+                            <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                        </div>
+                    </button>
+                    <div x-show="openSections.flowchart" x-collapse>
+                        <div class="border-t border-slate-100/50 p-8 pt-4">
+                            <div class="rounded-[3rem] bg-slate-950 p-6 md:p-12 overflow-x-auto shadow-2xl shadow-brand-900/40 border border-slate-800">
+                                <svg viewBox="-50 -20 1100 1350" class="mx-auto w-full h-auto min-w-[750px]" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <linearGradient id="gradBrand" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#38bdf8" />
+                                            <stop offset="100%" stop-color="#0e8ce4" />
+                                        </linearGradient>
+                                        <linearGradient id="gradEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#34d399" />
+                                            <stop offset="100%" stop-color="#10b981" />
+                                        </linearGradient>
+                                        <linearGradient id="gradAmber" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#fbbf24" />
+                                            <stop offset="100%" stop-color="#f59e0b" />
+                                        </linearGradient>
+                                        <linearGradient id="gradRose" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#fb7185" />
+                                            <stop offset="100%" stop-color="#f43f5e" />
+                                        </linearGradient>
+                                        <linearGradient id="gradIndigo" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#818cf8" />
+                                            <stop offset="100%" stop-color="#6366f1" />
+                                        </linearGradient>
+                                        <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+                                            <feGaussianBlur stdDeviation="8" result="blur" />
+                                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                        </filter>
+                                        <marker id="arrowHead" markerWidth="12" markerHeight="8" refX="11" refY="4" orient="auto">
+                                            <path d="M 0 0 L 12 4 L 0 8 Z" fill="#64748b" />
+                                        </marker>
+                                    </defs>
+                                    
+                                    <!-- START -->
+                                    <rect x="400" y="20" width="200" height="70" rx="35" fill="url(#gradBrand)" filter="url(#glow)" />
+                                    <text x="500" y="62" text-anchor="middle" fill="white" font-weight="900" font-size="20" font-family="Outfit" letter-spacing="1">START PROTOCOL</text>
+                                    
+                                    <path d="M 500 90 L 500 150" stroke="#334155" stroke-width="4" fill="none" marker-end="url(#arrowHead)" />
+
+                                    <!-- STEP 1 -->
+                                    <rect x="325" y="150" width="350" height="100" rx="24" fill="#0f172a" stroke="#38bdf8" stroke-width="3" filter="url(#glow)" />
+                                    <text x="500" y="195" text-anchor="middle" fill="#38bdf8" font-weight="900" font-size="18" font-family="Outfit">01. MATERIAL INSPECTION</text>
+                                    <text x="500" y="220" text-anchor="middle" fill="#64748b" font-size="14" font-weight="800">Verify PO & Technical Specs</text>
+                                    
+                                    <path d="M 500 250 L 500 310" stroke="#334155" stroke-width="4" fill="none" marker-end="url(#arrowHead)" />
+
+                                    <!-- DECISION 1 -->
+                                    <polygon points="500,310 650,400 500,490 350,400" fill="#0f172a" stroke="#f59e0b" stroke-width="4" filter="url(#glow)" />
+                                    <text x="500" y="395" text-anchor="middle" fill="#f59e0b" font-weight="900" font-size="18" font-family="Outfit">NON-CONFORMING?</text>
+                                    <text x="500" y="420" text-anchor="middle" fill="#64748b" font-size="12" font-weight="800">Damage / Quality / Mismatch</text>
+
+                                    <!-- NO PATH -->
+                                    <path d="M 650 400 L 800 400 L 800 460" stroke="#10b981" stroke-width="4" fill="none" stroke-dasharray="10,6" marker-end="url(#arrowHead)" />
+                                    <text x="725" y="385" fill="#10b981" font-weight="900" font-size="16">NO</text>
+                                    
+                                    <rect x="675" y="460" width="250" height="70" rx="35" fill="url(#gradEmerald)" filter="url(#glow)" />
+                                    <text x="800" y="502" text-anchor="middle" fill="white" font-weight="900" font-size="18" font-family="Outfit">ACCEPT & INVENTORY</text>
+
+                                    <!-- YES PATH -->
+                                    <path d="M 500 490 L 500 550" stroke="#f43f5e" stroke-width="4" fill="none" marker-end="url(#arrowHead)" />
+                                    <text x="525" y="525" fill="#f43f5e" font-weight="900" font-size="16">YES</text>
+
+                                    <!-- STEP 2 -->
+                                    <rect x="325" y="550" width="350" height="100" rx="24" fill="#0f172a" stroke="#f43f5e" stroke-width="3" filter="url(#glow)" />
+                                    <text x="500" y="595" text-anchor="middle" fill="#fb7185" font-weight="900" font-size="18" font-family="Outfit">02. REJECTION DECISION</text>
+                                    <text x="500" y="620" text-anchor="middle" fill="#64748b" font-size="14" font-weight="800">QC Approval + Formal Note</text>
+                                    
+                                    <path d="M 500 650 L 500 710" stroke="#334155" stroke-width="4" fill="none" marker-end="url(#arrowHead)" />
+
+                                    <!-- STEP 3 -->
+                                    <rect x="325" y="710" width="350" height="100" rx="24" fill="#0f172a" stroke="#fbbf24" stroke-width="3" filter="url(#glow)" />
+                                    <text x="500" y="755" text-anchor="middle" fill="#fbbf24" font-weight="900" font-size="18" font-family="Outfit">03. SEGREGATION & TAGGING</text>
+                                    <text x="500" y="780" text-anchor="middle" fill="#64748b" font-size="14" font-weight="800">Quarantine Area + Status Tag</text>
+                                    
+                                    <path d="M 500 810 L 500 870" stroke="#334155" stroke-width="4" fill="none" marker-end="url(#arrowHead)" />
+
+                                    <!-- STEP 4 -->
+                                    <rect x="325" y="870" width="350" height="100" rx="24" fill="#0f172a" stroke="#818cf8" stroke-width="3" filter="url(#glow)" />
+                                    <text x="500" y="915" text-anchor="middle" fill="#818cf8" font-weight="900" font-size="18" font-family="Outfit">04. VENDOR RESOLUTION</text>
+                                    <text x="500" y="940" text-anchor="middle" fill="#64748b" font-size="14" font-weight="800">Communication + Evidence Log</text>
+                                    
+                                    <path d="M 500 970 L 500 1030" stroke="#334155" stroke-width="4" fill="none" marker-end="url(#arrowHead)" />
+
+                                    <!-- STEP 5 -->
+                                    <rect x="325" y="1030" width="350" height="100" rx="24" fill="#0f172a" stroke="#0e8ce4" stroke-width="3" filter="url(#glow)" />
+                                    <text x="500" y="1075" text-anchor="middle" fill="#38bdf8" font-weight="900" font-size="18" font-family="Outfit">05. DISPATCH & DEBIT</text>
+                                    <text x="500" y="1100" text-anchor="middle" fill="#64748b" font-size="14" font-weight="800">Return Challan + Financial Adj.</text>
+                                    
+                                    <path d="M 500 1130 L 500 1160" stroke="#334155" stroke-width="4" fill="none" marker-end="url(#arrowHead)" />
+
+                                    <!-- END -->
+                                    <rect x="400" y="1160" width="200" height="70" rx="35" fill="url(#gradRose)" filter="url(#glow)" />
+                                    <text x="500" y="1202" text-anchor="middle" fill="white" font-weight="900" font-size="20" font-family="Outfit" letter-spacing="1">END PROTOCOL</text>
+                                    
+                                    <!-- CONNECTING ACCEPT TO END -->
+                                    <path d="M 925 495 L 960 495 L 960 1195 L 600 1195" stroke="#10b981" stroke-width="3" fill="none" stroke-dasharray="8,8" marker-end="url(#arrowHead)" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="mt-24 border-t border-slate-200 pt-12 text-center">
+                <div class="flex justify-center gap-8 mb-6">
+                    <div class="flex flex-col items-center">
+                        <span class="text-2xl font-black text-slate-800">100%</span>
+                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Compliance</span>
+                    </div>
+                    <div class="w-px h-10 bg-slate-200"></div>
+                    <div class="flex flex-col items-center">
+                        <span class="text-2xl font-black text-slate-800">ISO</span>
+                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Certified</span>
+                    </div>
+                    <div class="w-px h-10 bg-slate-200"></div>
+                    <div class="flex flex-col items-center">
+                        <span class="text-2xl font-black text-slate-800">24/7</span>
+                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Monitoring</span>
+                    </div>
+                </div>
+                <p class="text-sm font-bold text-slate-400 uppercase tracking-[0.2em]">
+                    Quality Management Systems • Interactive SOP Dashboard v2.0
+                </p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        function sopApp() {
+            return {
+                langs: {
+                    purpose: 'en',
+                    scope: 'en',
+                    responsibility: 'en',
+                    procedure: 'en',
+                    documents: 'en',
+                    flowchart: 'en'
+                },
+                openSections: {
+                    responsibility: false,
+                    procedure: false,
+                    documents: false,
+                    flowchart: true
+                },
+                data: {
+                    purpose: {
+                        en: "To define the process for handling defective, damaged, or non-conforming materials received from vendors.",
+                        hi: "वेंडर से प्राप्त खराब, डैमेज या स्पेसिफिकेशन के अनुसार न होने वाले मटेरियल को संभालने की प्रक्रिया निर्धारित करना।",
+                        gu: "વિક્રેતાથી પ્રાપ્ત થયેલ ખરાબ, નુકસાનગ્રસ્ત અથવા સ્પેસિફિકેશન મુજબ ન હોય તેવા માલને હેન્ડલ કરવાની પ્રક્રિયા નિર્ધારિત કરવી।"
+                    },
+                    scope: {
+                        en: "Applicable to all incoming materials, components, and parts used in submersible pump manufacturing.",
+                        hi: "यह SOP सभी इनकमिंग मटेरियल, कंपोनेंट्स और पार्ट्स पर लागू होती है।",
+                        gu: "આ SOP બધા આવનાર મટીરિયલ, કોમ્પોનેન્ટ્સ અને પાર્ટ્સ પર લાગુ પડે છે।"
+                    },
+                    responsibilities: [
+                        {
+                            role: { en: "Store", hi: "स्टोर", gu: "સ્ટોર" },
+                            task: { en: "Material receipt & segregation", hi: "मटेरियल रिसीव और अलग करना", gu: "માલ સ્વીકાર અને અલગ પાડવું" },
+                            iconName: "warehouse",
+                            color: "bg-blue-500"
+                        },
+                        {
+                            role: { en: "Quality (QC)", hi: "क्वालिटी (QC)", gu: "ક્વોલિટી (QC)" },
+                            task: { en: "Inspection & rejection decision", hi: "निरीक्षण और रिजेक्शन निर्णय", gu: "તપાસ અને રિજેકશન નિર્ણય" },
+                            iconName: "microscope",
+                            color: "bg-emerald-500"
+                        },
+                        {
+                            role: { en: "Purchase", hi: "परचेज", gu: "પર્ચેઝ" },
+                            task: { en: "Vendor communication & return handling", hi: "वेंडर से संपर्क और रिटर्न प्रक्रिया", gu: "વિક્રેતાથી સંપર્ક અને રિટર્ન પ્રક્રિયા" },
+                            iconName: "truck",
+                            color: "bg-amber-500"
+                        },
+                        {
+                            role: { en: "Accounts", hi: "अकाउंट्स", gu: "એકાઉન્ટ્સ" },
+                            task: { en: "Debit note & payment adjustment", hi: "डेबिट नोट और पेमेंट एडजस्टमेंट", gu: "ડેબિટ નોટ અને પેમેન્ટ એડજસ્ટમેન્ટ" },
+                            iconName: "file-bar-chart",
+                            color: "bg-indigo-500"
+                        }
+                    ],
+                    steps: [
+                        {
+                            id: "01",
+                            title: { en: "Material Inspection", hi: "मटेरियल निरीक्षण", gu: "મટીરિયલ નિરીક્ષણ" },
+                            desc: { 
+                                en: "Inspect material as per PO & specifications. Identify defects (damage, mismatch, quality issue). Inform QC team.",
+                                hi: "PO और स्पेसिफिकेशन के अनुसार मटेरियल चेक करें। डैमेज/मिसमैच/क्वालिटी समस्या पहचानें। QC टीम को सूचित करें।",
+                                gu: "PO અને સ્પેસિફિકેશન મુજબ માલ ચકાસો. નુકસાન / ગેરમિલ / ગુણવત્તા સમસ્યા ઓળખો. QC ટીમને જાણ કરો।"
+                            },
+                            iconName: "clipboard-list"
+                        },
+                        {
+                            id: "02",
+                            title: { en: "Rejection Decision", hi: "रिजेक्शन निर्णय", gu: "રિજેકશન નિર્ણય" },
+                            desc: {
+                                en: "QC inspects and approves rejection. Prepare Rejection Note.",
+                                hi: "QC निरीक्षण कर रिजेक्शन approve करे। रिजेक्शन नोट तैयार करें।",
+                                gu: "QC તપાસ કરી રિજેકશન મંજૂર કરે. રિજેકશન નોટ બનાવો।"
+                            },
+                            iconName: "check-circle-2"
+                        },
+                        {
+                            id: "03",
+                            title: { en: "Material Segregation", hi: "मटेरियल अलगाव", gu: "મટીરિયલ અલગ પાડવું" },
+                            desc: {
+                                en: "Keep rejected material in separate area. Tag as 'Rejected Material'.",
+                                hi: "रिजेक्टेड मटेरियल को अलग रखें। 'Rejected Material' टैग लगाएं।",
+                                gu: "રિજેક્ટેડ માલને અલગ રાખો. 'Rejected Material' ટેગ લગાવો।"
+                            },
+                            iconName: "alert-circle"
+                        },
+                        {
+                            id: "04",
+                            title: { en: "Vendor Communication", hi: "वेंडर संचार", gu: "વિક્રેતા સંચાર" },
+                            desc: {
+                                en: "Inform vendor via email/phone. Share rejection details with photos. Ask for replacement/refund.",
+                                hi: "वेंडर को ईमेल/फोन से सूचित करें। फोटो के साथ डिटेल शेयर करें। रिप्लेसमेंट/रिफंड मांगें।",
+                                gu: "વિક્રેતાને ઇમેલ/ફોનથી જાણ કરો. ફોટા સાથે માહિતી મોકલો. રિપ્લેસમેન્ટ / રિફંડ માંગો।"
+                            },
+                            iconName: "globe"
+                        },
+                        {
+                            id: "05",
+                            title: { en: "Return Process", hi: "रिटर्न प्रक्रिया", gu: "રિટર્ન પ્રક્રિયા" },
+                            desc: {
+                                en: "Prepare Return Challan. Dispatch material to vendor. Maintain dispatch records.",
+                                hi: "रिटर्न चालान तैयार करें। मटेरियल वेंडर को भेजें। रिकॉर्ड बनाए रखें।",
+                                gu: "રિટર્ન ચલાન બનાવો. માલ વિક્રેતાને મોકલો. રેકોર્ડ રાખો।"
+                            },
+                            iconName: "truck"
+                        },
+                        {
+                            id: "06",
+                            title: { en: "Debit Note Creation", hi: "डेबिट नोट निर्माण", gu: "ડેબિટ નોટ બનાવવી" },
+                            desc: {
+                                en: "Accounts prepare Debit Note. Adjust against vendor invoice.",
+                                hi: "अकाउंट्स डेबिट नोट बनाएं। वेंडर बिल में एडजस्ट करें।",
+                                gu: "એકાઉન્ટ્સ ડેબિટ નોટ બનાવે. બિલ સામે એડજસ્ટ કરે।"
+                            },
+                            iconName: "file-text"
+                        },
+                        {
+                            id: "07",
+                            title: { en: "Replacement / Refund Tracking", hi: "रिप्लेसमेंट / रिफंड ट्रैकिंग", gu: "રિપ્લેસમેન્ટ / રિફંડ ટ્રેકિંગ" },
+                            desc: {
+                                en: "Track replacement delivery. Follow-up till closure.",
+                                hi: "रिप्लेसमेंट ट्रैक करें। क्लोजर तक फॉलो-अप करें।",
+                                gu: "રિપ્લેસમેન્ટ ટ્રેક કરો. પૂર્ણ થાય ત્યાં સુધી ફોલો-અપ કરો।"
+                            },
+                            iconName: "git-graph"
+                        }
+                    ],
+                    documents: [
+                        { en: "Rejection Note", hi: "रिजेक्शन नोट", gu: "રિજેકશન નોટ", color: "bg-blue-100 text-blue-700" },
+                        { en: "Return Challan", hi: "रिटर्न चालान", gu: "રિટર્ન ચલાન", color: "bg-emerald-100 text-emerald-700" },
+                        { en: "Debit Note", hi: "डेबिट नोट", gu: "ડેબિટ નોટ", color: "bg-amber-100 text-amber-700" },
+                        { en: "Vendor Communication Record", hi: "वेंडर कम्युनिकेशन रिकॉर्ड", gu: "વિક્રેતા કમ્યુનિકેશન રેકોર્ડ", color: "bg-indigo-100 text-indigo-700" }
+                    ]
+                },
+                init() {
+                    lucide.createIcons();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
